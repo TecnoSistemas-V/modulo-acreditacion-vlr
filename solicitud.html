@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="css/estilos.css">
     <link rel="stylesheet" href="css/fuentes.css">
 </head>
-<body style="flex-direction: column; align-items: center; background-color: #f0f2f5;">
+<body style="display: flex; flex-direction: column; align-items: center; background-color: #f0f2f5; min-height: 100vh; margin: 0;">
 
     <div style="margin-top: 50px; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 400px; text-align: center;">
         <h2 style="color: #003366;">Portal del Estudiante / Trabajador</h2>
@@ -21,13 +21,13 @@
                 <option value="trabajo">Constancia de Trabajo</option>
             </select>
 
-            <button type="button" onclick="alert('Buscando en base de datos... Proximamente')" style="background-color: #28a745; color: white; border: none; padding: 12px; border-radius: 5px; cursor: pointer; font-weight: bold;">
+            <a href="formatos/constancia-estudios.html" style="background-color: #28a745; color: white; text-decoration: none; padding: 12px; border-radius: 5px; font-weight: bold; display: block; text-align: center;">
                 GENERAR CONSTANCIA
-            </button>
+            </a>
         </form>
     </div>
 
-    <p style="margin-top: 20px;"><a href="index.html" style="color: #003366; text-decoration: none;">← Volver a Verificación</a></p>
+    <p style="margin-top: 20px;"><a href="index.html" style="color: #003366; text-decoration: none; font-weight: bold;">← Volver a Verificación</a></p>
 
 </body>
 </html>
