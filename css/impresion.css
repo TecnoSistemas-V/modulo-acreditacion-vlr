@@ -1,1 +1,19 @@
-
+/* Este código solo se activa al momento de imprimir */
+@media print {
+    body {
+        background-color: white !important;
+        padding: 0;
+        margin: 0;
+    }
+    .hoja-carta {
+        box-shadow: none !important;
+        border: none !important;
+        width: 100%;
+        height: auto;
+        padding: 0;
+    }
+    /* Ocultamos elementos que no deben salir en papel si los hubiera (botones, menús) */
+    .no-print {
+        display: none !important;
+    }
+}
