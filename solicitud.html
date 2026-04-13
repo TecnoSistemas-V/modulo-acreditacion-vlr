@@ -13,21 +13,41 @@
         <p>Seleccione el tipo de documento que desea generar:</p>
 
         <form style="display: flex; flex-direction: column; gap: 15px; margin-top: 20px;">
-            <input type="text" placeholder="Número de Cédula" style="padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+            <input type="text" id="cedula" placeholder="Número de Cédula" style="padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
             
-            <select style="padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+            <select id="tipoConstancia" style="padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
                 <option value="">-- Seleccione Tipo de Constancia --</option>
                 <option value="estudio">Constancia de Estudios</option>
                 <option value="trabajo">Constancia de Trabajo</option>
             </select>
 
-            <a href="formatos/constancia-estudios.html" style="background-color: #28a745; color: white; text-decoration: none; padding: 12px; border-radius: 5px; font-weight: bold; display: block; text-align: center;">
+            <button type="button" onclick="generarDocumento()" style="background-color: #28a745; color: white; border: none; padding: 12px; border-radius: 5px; cursor: pointer; font-weight: bold;">
                 GENERAR CONSTANCIA
-            </a>
+            </button>
         </form>
     </div>
 
     <p style="margin-top: 20px;"><a href="index.html" style="color: #003366; text-decoration: none; font-weight: bold;">← Volver a Verificación</a></p>
+
+    <script>
+    function generarDocumento() {
+        const seleccion = document.getElementById('tipoConstancia').value;
+        const cedula = document.getElementById('cedula').value;
+
+        if (cedula === "") {
+            alert("Por favor, ingrese su número de cédula.");
+            return;
+        }
+
+        if (seleccion === "estudio") {
+            window.location.href = "formatos/constancia-estudios.html";
+        } else if (seleccion === "trabajo") {
+            window.location.href = "formatos/constancia-trabajo.html";
+        } else {
+            alert("Por favor, seleccione un tipo de constancia.");
+        }
+    }
+    </script>
 
 </body>
 </html>
