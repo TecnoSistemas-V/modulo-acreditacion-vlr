@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Solicitud de Constancias | TecnoSistemas-V</title>
+    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="css/fuentes.css">
+</head>
+<body style="flex-direction: column; align-items: center; background-color: #f0f2f5;">
+
+    <div style="margin-top: 50px; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 400px; text-align: center;">
+        <h2 style="color: #003366;">Portal del Estudiante / Trabajador</h2>
+        <p>Seleccione el tipo de documento que desea generar:</p>
+
+        <form style="display: flex; flex-direction: column; gap: 15px; margin-top: 20px;">
+            <input type="text" placeholder="Número de Cédula" style="padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+            
+            <select style="padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+                <option value="">-- Seleccione Tipo de Constancia --</option>
+                <option value="estudio">Constancia de Estudios</option>
+                <option value="trabajo">Constancia de Trabajo</option>
+            </select>
+
+            <button type="button" onclick="alert('Buscando en base de datos... Proximamente')" style="background-color: #28a745; color: white; border: none; padding: 12px; border-radius: 5px; cursor: pointer; font-weight: bold;">
+                GENERAR CONSTANCIA
+            </button>
+        </form>
+    </div>
+
+    <p style="margin-top: 20px;"><a href="index.html" style="color: #003366; text-decoration: none;">← Volver a Verificación</a></p>
+
+</body>
+</html>
