@@ -1,6 +1,17 @@
 # modulo-acreditacion-vlr
-Enlace (Link),Identificador,Descripción del Módulo
-https://tecnosistemas-v.github.io/modulo-acreditacion-vlr/index.html ,Inicio,Página principal con el menú de bienvenida.
-https://tecnosistemas-v.github.io/modulo-acreditacion-vlr/solicitud.html ,Solicitud,El portal donde se ingresa la cédula y se elige el documento.
-https://tecnosistemas-v.github.io/modulo-acreditacion-vlr/nominas.html ,Nóminas ,Visualización de las listas de estudiantes de las 5 carreras.
-https://tecnosistemas-v.github.io/modulo-acreditacion-vlr/formatos/constancia-estudios.html ,Constancia,El documento final generado con los datos del alumno.
+Directorio de Enlaces (URLs)
+Página de Inicio: https://tecnosistemas-v.github.io/modulo-acreditacion-vlr/index.html
+
+Uso: Menú principal y bienvenida al sistema.
+
+Portal de Solicitud: https://tecnosistemas-v.github.io/modulo-acreditacion-vlr/solicitud.html
+
+Uso: Interfaz donde se ingresa la cédula y se elige el tipo de constancia.
+
+Nóminas Académicas: https://tecnosistemas-v.github.io/modulo-acreditacion-vlr/nominas.html
+
+Uso: Consulta de listados de estudiantes organizados por carrera y sección.
+
+Formato de Constancia: https://tecnosistemas-v.github.io/modulo-acreditacion-vlr/formatos/constancia-estudios.html
+
+Uso: Documento dinámico que recibe y muestra los datos del estudiante.
