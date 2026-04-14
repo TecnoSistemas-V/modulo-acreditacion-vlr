@@ -7,41 +7,47 @@ window.buscarEstudiante = async function() {
     const resultadoDiv = document.getElementById('resultado-busqueda');
 
     if (!cedulaInput || !cedulaInput.value) {
-        return alert("Por favor, ingresa un número de cédula.");
+        return alert("Por favor, ingresa un número de cédula para buscar.");
     }
 
     const cedula = cedulaInput.value.trim();
-    resultadoDiv.innerHTML = `<p style="color: blue;">Buscando en la base de datos global de TecnoSistemas-V...</p>`;
+    resultadoDiv.innerHTML = `<p style="color: #003366;">Consultando base de datos global de TecnoSistemas-V...</p>`;
 
     try {
-        // Creamos la consulta para buscar en la nube por cédula
+        // Buscamos en la nube (Firestore) el estudiante por su cédula
         const estudiantesRef = collection(db, "estudiantes");
         const q = query(estudiantesRef, where("cedula", "==", cedula));
         const querySnapshot = await getDocs(q);
 
         if (querySnapshot.empty) {
-            resultadoDiv.innerHTML = `<p style="color: red;">Cédula ${cedula} no encontrada. Verifique e intente de nuevo.</p>`;
+            resultadoDiv.innerHTML = `
+                <div style="background: #fff3cd; color: #856404; padding: 15px; border-radius: 8px; border: 1px solid #ffeeba;">
+                    Cédula <strong>${cedula}</strong> no encontrada. Por favor, verifique los datos.
+                </div>`;
         } else {
-            // Si lo encuentra, tomamos los datos
+            // ¡Éxito! Encontramos al estudiante en la nube
             querySnapshot.forEach((doc) => {
                 const datos = doc.data();
                 
-                // Guardamos en la memoria temporal para que la página de la constancia los use
+                // Guardamos los datos temporalmente para que la constancia sepa qué imprimir
                 localStorage.setItem('estudiante_activo', JSON.stringify(datos));
                 
                 resultadoDiv.innerHTML = `
-                    <div style="background: #e7f3fe; padding: 15px; border-radius: 8px; border: 1px solid #b6d4fe;">
+                    <div style="background: #d4edda; color: #155724; padding: 15px; border-radius: 8px; border: 1px solid #c3e6cb; margin-top: 10px;">
                         <p><strong>Estudiante:</strong> ${datos.nombres} ${datos.apellidos}</p>
                         <p><strong>Carrera:</strong> ${datos.carrera}</p>
-                        <button onclick="window.location.href='generar_constancia.html'" style="background: #198754; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer;">
-                            Generar Constancia
+                        <p><strong>Sección:</strong> ${datos.seccion}</p>
+                        <hr>
+                        <button onclick="window.location.href='generar_constancia.html'" 
+                                style="background: #28a745; color: white; padding: 12px; border: none; border-radius: 5px; cursor: pointer; width: 100%; font-weight: bold;">
+                            ✅ GENERAR MI CONSTANCIA
                         </button>
                     </div>
                 `;
             });
         }
     } catch (error) {
-        console.error("Error al buscar en Firebase:", error);
-        resultadoDiv.innerHTML = `<p style="color: red;">Error de conexión. Intente más tarde.</p>`;
+        console.error("Error al conectar con la nube:", error);
+        resultadoDiv.innerHTML = `<p style="color: red;">Error de conexión. Asegúrese de tener internet e intente de nuevo.</p>`;
     }
 }
