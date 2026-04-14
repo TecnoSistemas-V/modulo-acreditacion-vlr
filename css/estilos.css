@@ -1,38 +1,25 @@
-/* Estilos Globales para Documentos Institucionales */
-body {
-    background-color: #e0e0e0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    display: flex;
-    justify-content: center;
-    padding: 20px;
-    margin: 0;
+.etiqueta-seccion {
+    background-color: #003366;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.85em;
+    font-weight: bold;
 }
 
-.hoja-carta {
-    background-color: white;
-    width: 21cm;
-    height: 29.7cm;
-    padding: 1.5cm 2cm;
-    box-shadow: 0 0 15px rgba(0,0,0,0.2);
-    box-sizing: border-box;
-    position: relative;
-    border-top: 5px solid #003366; /* Un azul institucional */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
 }
 
-.membrete {
-    text-align: center;
-    font-size: 11px;
-    color: #333;
-    text-transform: uppercase;
-    margin-bottom: 50px;
-}
-
-.qr-box {
-    position: absolute;
-    bottom: 2cm;
-    right: 2cm;
-    text-align: center;
+th, td {
     border: 1px solid #ddd;
-    padding: 5px;
-    background: #f9f9f9;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #003366;
+    color: white;
 }
