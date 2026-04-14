@@ -29,25 +29,35 @@
 
     <p style="margin-top: 20px;"><a href="index.html" style="color: #003366; text-decoration: none; font-weight: bold;">← Volver a Verificación</a></p>
 
-    <script>
-    function generarDocumento() {
-        const seleccion = document.getElementById('tipoConstancia').value;
-        const cedula = document.getElementById('cedula').value;
+    <script src="js/datos.js"></script>
+<script>
+function generarDocumento() {
+    const cedulaInput = document.getElementById('cedula').value;
+    const seleccion = document.getElementById('tipoConstancia').value;
 
-        if (cedula === "") {
-            alert("Por favor, ingrese su número de cédula.");
-            return;
-        }
-
-        if (seleccion === "estudio") {
-            window.location.href = "formatos/constancia-estudios.html";
-        } else if (seleccion === "trabajo") {
-            window.location.href = "formatos/constancia-trabajo.html";
-        } else {
-            alert("Por favor, seleccione un tipo de constancia.");
-        }
+    if (cedulaInput === "") {
+        alert("Por favor, ingrese su número de cédula.");
+        return;
     }
-    </script>
+
+    // Buscamos al estudiante en nuestra base de datos
+    const estudiante = buscarEstudiante(cedulaInput);
+
+    if (estudiante) {
+        // Si existe, enviamos todos los datos a la constancia por la URL
+        const params = new URLSearchParams({
+            cedula: estudiante.cedula,
+            nombre: `${estudiante.nombres} ${estudiante.apellidos}`,
+            carrera: estudiante.carrera
+        });
+        
+        let archivo = (seleccion === "estudio") ? "constancia-estudios.html" : "constancia-trabajo.html";
+        window.location.href = `formatos/${archivo}?${params.toString()}`;
+    } else {
+        alert("Cédula no encontrada en la nómina. Verifique los datos.");
+    }
+}
+</script>
 
 </body>
 </html>
