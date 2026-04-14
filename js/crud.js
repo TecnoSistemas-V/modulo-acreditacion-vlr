@@ -1,82 +1,78 @@
-// js/crud.js - MOTOR DE ADMINISTRACIÓN
+// js/crud.js
 
-window.onload = function() {
-    inicializarDatos();
-    dibujarTabla();
-};
+// 1. Al cargar la página, dibujar la tabla
+document.addEventListener('DOMContentLoaded', dibujarTabla);
 
-function inicializarDatos() {
-    let datos = JSON.parse(localStorage.getItem('db_nominas'));
-    // Si no hay datos, creamos los iniciales
-    if (!datos) {
-        datos = [
-            { cedula: "30000001", apellidos: "ARAUJO QUINTERO", nombres: "JESÚS", carrera: "Ing. en Informática", direccion: "VALERA, EDO. TRUJILLO" },
-            { cedula: "30000002", apellidos: "CASTILLO RIVAS", nombres: "CARLOS", carrera: "Ing. en Informática", direccion: "VALERA, SAN LUIS" }
-        ];
-        localStorage.setItem('db_nominas', JSON.stringify(datos));
-    }
+// 2. Función para importar el CSV de Google Sheets
+function importarCSV() {
+    const input = document.getElementById('archivo-csv');
+    if (!input.files[0]) return alert("Por favor, selecciona el archivo CSV");
+
+    const lector = new FileReader();
+    lector.onload = function(e) {
+        const contenido = e.target.result;
+        const filas = contenido.split("\n");
+        let listaNueva = [];
+
+        // Empezamos en i=1 para saltar los encabezados del Excel
+        for (let i = 1; i < filas.length; i++) {
+            const columnas = filas[i].split(",");
+            
+            // Verificamos que la fila tenga datos (Cédula, Apellidos, Nombres, Carrera, Sección)
+            if (columnas.length >= 5) {
+                listaNueva.push({
+                    cedula: columnas[0].trim(),
+                    apellidos: columnas[1].trim(),
+                    nombres: columnas[2].trim(),
+                    carrera: columnas[3].trim(),
+                    seccion: columnas[4].trim(),
+                    direccion: columnas[5] ? columnas[5].trim() : "VALERA"
+                });
+            }
+        }
+
+        if (listaNueva.length > 0) {
+            localStorage.setItem('db_nominas', JSON.stringify(listaNueva));
+            alert("¡Éxito! Se han cargado " + listaNueva.length + " estudiantes.");
+            dibujarTabla();
+        } else {
+            alert("El archivo parece estar vacío o mal formateado.");
+        }
+    };
+    lector.readAsText(input.files[0]);
 }
 
+// 3. Función para mostrar los datos en la tabla
 function dibujarTabla() {
-    const lista = JSON.parse(localStorage.getItem('db_nominas')) || [];
     const cuerpo = document.getElementById('cuerpo-tabla');
-    if(!cuerpo) return;
-    cuerpo.innerHTML = '';
+    const datos = JSON.parse(localStorage.getItem('db_nominas')) || [];
+    
+    cuerpo.innerHTML = ""; // Limpiar tabla antes de dibujar
 
-    lista.forEach((est, i) => {
+    datos.forEach((estudiante, index) => {
         cuerpo.innerHTML += `
-            <tr id="fila-${i}">
-                <td class="edit">${est.cedula}</td>
-                <td class="edit">${est.apellidos}</td>
-                <td class="edit">${est.nombres}</td>
-                <td class="edit">${est.carrera}</td>
-                <td class="edit">${est.direccion}</td>
+            <tr>
+                <td>${estudiante.cedula}</td>
+                <td>${estudiante.apellidos}</td>
+                <td>${estudiante.nombres}</td>
+                <td>${estudiante.carrera}</td>
+                <td><span class="etiqueta-seccion">${estudiante.seccion}</span></td>
+                <td>${estudiante.direccion}</td>
                 <td>
-                    <button class="btn-accion btn-editar" onclick="editar(${i})">Editar</button>
-                    <button class="btn-accion btn-guardar" onclick="guardar(${i})" id="btnG-${i}" style="display:none;">Guardar</button>
-                    <button class="btn-accion btn-eliminar" onclick="eliminar(${i})">Borrar</button>
+                    <button class="btn-editar" onclick="editarEstudiante(${index})">Editar</button>
+                    <button class="btn-borrar" onclick="eliminarEstudiante(${index})">Borrar</button>
                 </td>
-            </tr>`;
+            </tr>
+        `;
     });
 }
 
-function editar(i) {
-    const fila = document.getElementById(`fila-${i}`);
-    fila.querySelectorAll('.edit').forEach(td => td.contentEditable = true);
-    fila.querySelector('.btn-editar').style.display = 'none';
-    fila.querySelector('.btn-guardar').style.display = 'inline-block';
-}
-
-function guardar(i) {
-    const fila = document.getElementById(`fila-${i}`);
-    const campos = fila.querySelectorAll('.edit');
-    let lista = JSON.parse(localStorage.getItem('db_nominas'));
-
-    lista[i] = {
-        cedula: campos[0].innerText.trim(),
-        apellidos: campos[1].innerText.trim(),
-        nombres: campos[2].innerText.trim(),
-        carrera: campos[3].innerText.trim(),
-        direccion: campos[4].innerText.trim()
-    };
-
-    localStorage.setItem('db_nominas', JSON.stringify(lista));
-    dibujarTabla();
-}
-
-function eliminar(i) {
-    if(confirm("¿Eliminar este registro?")) {
-        let lista = JSON.parse(localStorage.getItem('db_nominas'));
-        lista.splice(i, 1);
-        localStorage.setItem('db_nominas', JSON.stringify(lista));
+// 4. Función para eliminar (por si te equivocas al cargar)
+function eliminarEstudiante(index) {
+    if (confirm("¿Seguro que deseas eliminar este registro?")) {
+        let datos = JSON.parse(localStorage.getItem('db_nominas'));
+        datos.splice(index, 1);
+        localStorage.setItem('db_nominas', JSON.stringify(datos));
         dibujarTabla();
     }
-}
-
-function agregarNuevo() {
-    let lista = JSON.parse(localStorage.getItem('db_nominas')) || [];
-    lista.unshift({ cedula: "000", apellidos: "NUEVO", nombres: "NUEVO", carrera: "SIN ASIGNAR", direccion: "VALERA" });
-    localStorage.setItem('db_nominas', JSON.stringify(lista));
-    dibujarTabla();
-    editar(0);
 }
