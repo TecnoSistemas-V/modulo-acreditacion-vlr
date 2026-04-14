@@ -1,12 +1,13 @@
-// js/crud.js
+// js/crud.js - EL MOTOR ADMINISTRATIVO
 
-// 1. Cargar datos al iniciar
 window.onload = function() {
     let datos = JSON.parse(localStorage.getItem('db_nominas'));
+    
+    // Si la base de datos está vacía, cargamos los primeros registros
     if (!datos) {
-        // Datos iniciales de ejemplo si la base está vacía
         datos = [
-            { cedula: "30000001", apellidos: "Araujo Quintero", nombres: "Jesús", fecha: "11/02/2005", direccion: "Valera, La Beatriz" }
+            { cedula: "30000001", apellidos: "ARAUJO QUINTERO", nombres: "JESÚS", fecha: "11/02/2005", direccion: "VALERA, EDO. TRUJILLO", carrera: "Ing. en Informática" },
+            { cedula: "30000002", apellidos: "CASTILLO RIVAS", nombres: "CARLOS", fecha: "12/03/2005", direccion: "VALERA, SAN LUIS", carrera: "Ing. en Informática" }
         ];
         localStorage.setItem('db_nominas', JSON.stringify(datos));
     }
@@ -24,11 +25,11 @@ function dibujarTabla() {
                 <td class="edit" data-campo="cedula">${est.cedula}</td>
                 <td class="edit" data-campo="apellidos">${est.apellidos}</td>
                 <td class="edit" data-campo="nombres">${est.nombres}</td>
-                <td class="edit" data-campo="fecha">${est.fecha}</td>
+                <td class="edit" data-campo="carrera">${est.carrera}</td>
                 <td class="edit" data-campo="direccion">${est.direccion}</td>
                 <td>
                     <button class="btn-accion btn-editar" onclick="editar(${i})">Editar</button>
-                    <button class="btn-accion btn-guardar" onclick="guardar(${i})" id="btnG-${i}">Guardar</button>
+                    <button class="btn-accion btn-guardar" onclick="guardar(${i})" id="btnG-${i}" style="display:none;">Guardar</button>
                     <button class="btn-accion btn-eliminar" onclick="eliminar(${i})">Borrar</button>
                 </td>
             </tr>`;
@@ -51,17 +52,17 @@ function guardar(i) {
         cedula: campos[0].innerText,
         apellidos: campos[1].innerText,
         nombres: campos[2].innerText,
-        fecha: campos[3].innerText,
+        carrera: campos[3].innerText,
         direccion: campos[4].innerText
     };
 
     localStorage.setItem('db_nominas', JSON.stringify(lista));
     dibujarTabla();
-    alert("¡Registro actualizado con éxito!");
+    alert("¡Registro guardado!");
 }
 
 function eliminar(i) {
-    if(confirm("¿Seguro que desea eliminar este registro?")) {
+    if(confirm("¿Desea eliminar este registro permanentemente?")) {
         let lista = JSON.parse(localStorage.getItem('db_nominas'));
         lista.splice(i, 1);
         localStorage.setItem('db_nominas', JSON.stringify(lista));
@@ -71,8 +72,8 @@ function eliminar(i) {
 
 function agregarNuevo() {
     let lista = JSON.parse(localStorage.getItem('db_nominas'));
-    lista.unshift({ cedula: "000", apellidos: "NUEVO", nombres: "NUEVO", fecha: "00/00/00", direccion: "VALERA" });
+    lista.unshift({ cedula: "000", apellidos: "NUEVO", nombres: "NUEVO", carrera: "SIN ASIGNAR", direccion: "VALERA" });
     localStorage.setItem('db_nominas', JSON.stringify(lista));
     dibujarTabla();
-    editar(0); // Activa edición automáticamente para el nuevo
+    editar(0);
 }
