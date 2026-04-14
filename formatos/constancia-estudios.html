@@ -2,66 +2,71 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Constancia de Estudios | TecnoSistemas-V</title>
-    <link rel="stylesheet" href="../css/estilos.css">
-    <link rel="stylesheet" href="../css/fuentes.css">
-    <link rel="stylesheet" href="../css/impresion.css" media="print">
+    <title>Constancia de Estudios Digital</title>
     <style>
-        body { font-family: 'Arial', sans-serif; padding: 50px; line-height: 1.6; background-color: white; }
-        .membrete { text-align: center; font-size: 0.8em; margin-bottom: 50px; text-transform: uppercase; }
-        .titulo { text-align: center; text-decoration: underline; font-weight: bold; margin-bottom: 40px; font-size: 1.4em; }
-        .cuerpo { text-align: justify; font-size: 1.1em; margin-bottom: 50px; }
-        .firma-espacio { margin-top: 80px; text-align: center; }
-        .linea-firma { border-top: 1px solid black; width: 250px; margin: auto; }
-        @media print { .no-print { display: none; } }
+        body { font-family: 'Arial', sans-serif; padding: 40px; line-height: 1.6; color: #333; }
+        .hoja { max-width: 800px; margin: auto; border: 1px solid #eee; padding: 50px; box-shadow: 0 0 10px rgba(0,0,0,0.05); }
+        .membrete { text-align: center; font-size: 0.9em; margin-bottom: 40px; }
+        .titulo { text-align: center; font-weight: bold; text-decoration: underline; font-size: 1.5em; margin-bottom: 40px; }
+        .cuerpo { text-align: justify; font-size: 1.1em; margin-bottom: 30px; }
+        .firma { margin-top: 60px; text-align: center; }
+        .linea { border-top: 1px solid #000; width: 200px; margin: 10px auto; }
+        @media print { .no-print { display: none; } .hoja { border: none; box-shadow: none; padding: 0; } }
     </style>
 </head>
 <body>
 
-    <div style="text-align: right;" class="no-print">
-        <button onclick="window.print()" style="background: #28a745; color: white; padding: 10px; border: none; cursor: pointer; border-radius: 5px;">Imprimir Documento</button>
+    <div class="no-print" style="text-align: center; margin-bottom: 20px;">
+        <button onclick="window.print()" style="padding: 10px 20px; background: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;">🖨️ IMPRIMIR CONSTANCIA</button>
     </div>
 
-    <div class="membrete">
-        REPÚBLICA BOLIVARIANA DE VENEZUELA<br>
-        UNIDAD EDUCATIVA INSTITUCIONAL - VALERA, EDO. TRUJILLO
-    </div>
+    <div class="hoja">
+        <div class="membrete">
+            REPÚBLICA BOLIVARIANA DE VENEZUELA<br>
+            UNIDAD EDUCATIVA INSTITUCIONAL - VALERA, EDO. TRUJILLO
+        </div>
 
-    <div class="titulo">CONSTANCIA DE ESTUDIOS</div>
+        <div class="titulo">CONSTANCIA DE ESTUDIOS</div>
 
-    <div class="cuerpo">
-        Quien suscribe, la Dirección de la Unidad Educativa "Nombre del Colegio", hace constar por medio de la presente que el alumno(a): <strong id="campo-nombre">[NOMBRE DEL ESTUDIANTE]</strong>, titular de la Cédula de Identidad N° <strong id="campo-cedula">[V-00.000.000]</strong>, se encuentra inscrito y cursando actualmente el <strong id="campo-carrera">[AÑO/GRADO]</strong> de Educación Media General en esta institución, durante el período escolar 2025-2026.
-    </div>
+        <div class="cuerpo">
+            Quien suscribe, la Dirección de la Unidad Educativa Institucional, hace constar por medio de la presente que el alumno(a): 
+            <b id="nombre-est"></b>, titular de la Cédula de Identidad N° 
+            <b id="cedula-est"></b>, se encuentra inscrito y cursando actualmente la carrera de 
+            <b id="carrera-est"></b> en esta institución, durante el período escolar 2025-2026.
+        </div>
 
-    <div class="cuerpo">
-        Constancia que se expide a petición de la parte interesada en Valera, a los <span id="fecha-actual">13 días del mes de abril de 2026</span>.
-    </div>
+        <div class="cuerpo">
+            Constancia que se expide a petición de la parte interesada en Valera, a los <span id="fecha-actual"></span>.
+        </div>
 
-    <div class="firma-espacio">
-        <div class="linea-firma"></div>
-        <p>Dirección de la Institución<br>Sello Oficial</p>
+        <div class="firma">
+            <div class="linea"></div>
+            Dirección Académica<br>Sello de la Institución
+        </div>
     </div>
 
     <script>
-        // 1. Capturamos los datos que vienen en la barra de direcciones (URL)
-        const urlParams = new URLSearchParams(window.location.search);
-        const cedula = urlParams.get('cedula');
-        const nombre = urlParams.get('nombre');
-        const carrera = urlParams.get('carrera');
+        // CAPTURA DE DATOS DESDE LA URL
+        const params = new URLSearchParams(window.location.search);
+        
+        // Asignamos los valores a los elementos por su ID (esto evita duplicados)
+        if (params.has('nombre')) {
+            document.getElementById('nombre-est').innerText = params.get('nombre').toUpperCase();
+            document.getElementById('cedula-est').innerText = "V-" + params.get('cedula');
+            document.getElementById('carrera-est').innerText = params.get('carrera');
 
-        // 2. Si existen los datos, los inyectamos en los lugares correctos
-        if (nombre && cedula) {
-            document.getElementById('campo-nombre').innerText = nombre.toUpperCase();
-            document.getElementById('campo-cedula').innerText = "V-" + cedula;
-            document.getElementById('campo-carrera').innerText = carrera;
-
-            // 3. Ponemos la fecha de hoy automáticamente
+            // Fecha automática
             const hoy = new Date();
-            const opciones = { day: 'numeric', month: 'long', year: 'numeric' };
-            const fechaFormateada = hoy.toLocaleDateString('es-ES', opciones);
-            document.getElementById('fecha-actual').innerText = fechaFormateada;
+            const fechaTexto = hoy.toLocaleDateString('es-ES', { 
+                day: 'numeric', 
+                month: 'long', 
+                year: 'numeric' 
+            });
+            document.getElementById('fecha-actual').innerText = fechaTexto;
+        } else {
+            // Si entras directo sin datos, muestra un aviso
+            document.querySelector('.cuerpo').innerText = "Error: No se han recibido datos del estudiante.";
         }
     </script>
-
 </body>
 </html>
