@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Nóminas de Estudiantes | TecnoSistemas-V</title>
+    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="css/fuentes.css">
+    <style>
+        body { font-family: 'Georgia', serif; background-color: #f4f7f6; padding: 20px; }
+        .contenedor { max-width: 1100px; margin: auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h1 { color: #003366; text-align: center; border-bottom: 2px solid #003366; padding-bottom: 10px; }
+        h2 { color: #0056b3; margin-top: 40px; border-left: 5px solid #0056b3; padding-left: 10px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.9em; }
+        th { background-color: #003366; color: white; padding: 12px; text-align: left; }
+        td { padding: 10px; border-bottom: 1px solid #ddd; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+        .modalidad { font-weight: bold; color: #28a745; }
+        .btn-volver { display: inline-block; margin-bottom: 20px; color: #003366; text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="contenedor">
+    <a href="index.html" class="btn-volver">← Volver al Panel Principal</a>
+    <h1>Control de Nóminas Académicas - Valera</h1>
+
+    <h2>Carrera: Ingeniería en Informática - Sección 01</h2>
+    <p><strong>Modalidad:</strong> Diurna / A Distancia | <strong>Semestre:</strong> 1ero</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Cédula</th>
+                <th>Apellidos y Nombres</th>
+                <th>F. Nacimiento</th>
+                <th>Dirección</th>
+                <th>Modalidad</th>
+            </tr>
+        </thead>
+        <tbody id="tabla-informatica">
+            </tbody>
+    </table>
+
+    <h2>Carrera: Ingeniería Eléctrica - Sección 01</h2>
+    <p><strong>Modalidad:</strong> Nocturna | <strong>Semestre:</strong> 2do</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Cédula</th>
+                <th>Apellidos y Nombres</th>
+                <th>F. Nacimiento</th>
+                <th>Dirección</th>
+                <th>Modalidad</th>
+            </tr>
+        </thead>
+        <tbody id="tabla-electrica">
+        </tbody>
+    </table>
+
+    </div>
+
+<script>
+    // Función para generar datos de ejemplo rápidamente
+    function llenarTabla(idTabla, prefijoCedula, cantidad, carrera, modalidadBase) {
+        const tabla = document.getElementById(idTabla);
+        const nombres = ["Juan", "Maria", "Luis", "Ana", "Pedro", "Elena", "Carlos", "Sofia", "Diego", "Carmen"];
+        const apellidos = ["Perez", "Uzcategui", "Briceño", "Mendoza", "Rivas", "Torres", "Araujo", "Quintero"];
+        const sectores = ["La Beatriz", "San Luis", "Morón", "Las Acacias", "Plata III", "Motatán", "Carvajal"];
+
+        for (let i = 0; i <= cantidad; i++) {
+            let cedula = prefijoCedula + (i < 10 ? "0" + i : i);
+            let nombre = nombres[Math.floor(Math.random() * nombres.length)];
+            let apellido = apellidos[Math.floor(Math.random() * apellidos.length)];
+            let sector = sectores[Math.floor(Math.random() * sectores.length)];
+            
+            let fila = `<tr>
+                <td>${cedula}</td>
+                <td>${apellido}, ${nombre}</td>
+                <td>${10 + (i%10)}/05/2005</td>
+                <td>Valera, Sector ${sector}</td>
+                <td class="modalidad">${modalidadBase}</td>
+            </tr>`;
+            tabla.innerHTML += fila;
+        }
+    }
+
+    // Ejecutamos el llenado de las tablas al cargar
+    window.onload = function() {
+        llenarTabla('tabla-informatica', '300000', 31, 'Informática', 'Diurno');
+        llenarTabla('tabla-electrica', '400000', 31, 'Eléctrica', 'Nocturno');
+        // Aquí puedes agregar las otras 3 carreras (Derecho, Contaduría, Contaduría Pública)
+    };
+</script>
+
+</body>
+</html>
