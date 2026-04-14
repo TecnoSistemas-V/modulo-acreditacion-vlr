@@ -2,40 +2,47 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Administración de Estudiantes - TecnoSistemas-V</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de Estudios - TecnoSistemas-V</title>
     <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
     <div class="contenedor">
-        <a href="index.html">← Volver</a>
-        <h1>Administración de Estudiantes</h1>
+        <header>
+            <a href="index.html" class="link-volver">← Volver al Panel</a>
+            <h1>Administración de Estudiantes</h1>
+        </header>
 
-        <div style="margin-bottom: 20px;">
-            <button class="btn-accion btn-nuevo" onclick="nuevoEstudiante()">+ Nuevo Estudiante</button>
+        <section class="seccion-carga">
+            <div class="tarjeta-importar">
+                <h3>Carga Masiva desde Google Sheets</h3>
+                <p>Archivo requerido: <strong>nomina_estudiantil_tecnosistemas_2026.csv</strong></p>
+                
+                <div class="controles-archivo">
+                    <input type="file" id="archivo-csv" accept=".csv">
+                    <button class="btn-principal" onclick="importarCSV()">Procesar Archivo</button>
+                    <button class="btn-peligro" onclick="vaciarBaseDeDatos()">Vaciar Todo</button>
+                </div>
+            </div>
+        </section>
+
+        <div class="tabla-scroll">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Cédula</th>
+                        <th>Apellidos</th>
+                        <th>Nombres</th>
+                        <th>Carrera</th>
+                        <th>Sección</th>
+                        <th>Dirección</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="cuerpo-tabla">
+                    </tbody>
+            </table>
         </div>
-
-        <div style="margin-bottom: 20px; padding: 15px; border: 2px dashed #003366; background: #f0f4f8; border-radius: 8px;">
-            <h3 style="margin-top:0; color:#003366;">Carga Masiva (Desde Google Sheets)</h3>
-            <p style="font-size: 0.85em;">Selecciona el archivo: <strong>nomina_estudiantil_tecnosistemas_2026.csv</strong></p>
-            <input type="file" id="archivo-csv" accept=".csv">
-            <button class="btn-accion btn-guardar" onclick="importarCSV()">Procesar Archivo</button>
-        </div>
-
-        <table id="tabla-estudiantes">
-            <thead>
-                <tr>
-                    <th>Cédula</th>
-                    <th>Apellidos</th>
-                    <th>Nombres</th>
-                    <th>Carrera</th>
-                    <th>Sección</th>
-                    <th>Dirección</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody id="cuerpo-tabla">
-                </tbody>
-        </table>
     </div>
 
     <script src="js/crud.js"></script>
