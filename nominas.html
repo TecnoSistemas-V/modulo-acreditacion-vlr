@@ -2,93 +2,91 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Nóminas de Estudiantes | TecnoSistemas-V</title>
+    <title>Nóminas Académicas | TecnoSistemas-V</title>
     <link rel="stylesheet" href="css/estilos.css">
     <link rel="stylesheet" href="css/fuentes.css">
     <style>
-        body { font-family: 'Georgia', serif; background-color: #f4f7f6; padding: 20px; }
-        .contenedor { max-width: 1100px; margin: auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        h1 { color: #003366; text-align: center; border-bottom: 2px solid #003366; padding-bottom: 10px; }
-        h2 { color: #0056b3; margin-top: 40px; border-left: 5px solid #0056b3; padding-left: 10px; }
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.9em; }
-        th { background-color: #003366; color: white; padding: 12px; text-align: left; }
-        td { padding: 10px; border-bottom: 1px solid #ddd; }
-        tr:nth-child(even) { background-color: #f9f9f9; }
-        .modalidad { font-weight: bold; color: #28a745; }
-        .btn-volver { display: inline-block; margin-bottom: 20px; color: #003366; text-decoration: none; font-weight: bold; }
+        body { font-family: 'Georgia', serif; background-color: #f4f7f6; padding: 20px; color: #333; }
+        .contenedor { max-width: 1200px; margin: auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1 { color: #003366; text-align: center; border-bottom: 3px solid #003366; padding-bottom: 10px; text-transform: uppercase; }
+        h2 { color: #0056b3; margin-top: 40px; background: #eef4fb; padding: 10px; border-left: 6px solid #003366; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; background: white; }
+        th { background-color: #003366; color: white; padding: 12px; text-align: left; text-transform: uppercase; font-size: 0.85em; }
+        td { padding: 10px; border-bottom: 1px solid #ddd; font-size: 0.9em; }
+        tr:nth-child(even) { background-color: #f2f2f2; }
+        tr:hover { background-color: #e9ecef; }
+        .modalidad { font-weight: bold; padding: 4px 8px; border-radius: 4px; font-size: 0.8em; }
+        .diurno { background: #d4edda; color: #155724; }
+        .nocturno { background: #fff3cd; color: #856404; }
+        .distancia { background: #d1ecf1; color: #0c5460; }
+        .fines { background: #f8d7da; color: #721c24; }
+        .btn-volver { display: inline-block; margin-bottom: 20px; color: #003366; text-decoration: none; font-weight: bold; border: 1px solid #003366; padding: 8px 15px; border-radius: 5px; }
+        .btn-volver:hover { background: #003366; color: white; }
     </style>
 </head>
 <body>
 
 <div class="contenedor">
-    <a href="index.html" class="btn-volver">← Volver al Panel Principal</a>
-    <h1>Control de Nóminas Académicas - Valera</h1>
+    <a href="index.html" class="btn-volver">← Volver al Panel</a>
+    <h1>Control Maestro de Nóminas - TecnoSistemas-V</h1>
 
-    <h2>Carrera: Ingeniería en Informática - Sección 01</h2>
-    <p><strong>Modalidad:</strong> Diurna / A Distancia | <strong>Semestre:</strong> 1ero</p>
-    <table>
-        <thead>
-            <tr>
-                <th>Cédula</th>
-                <th>Apellidos y Nombres</th>
-                <th>F. Nacimiento</th>
-                <th>Dirección</th>
-                <th>Modalidad</th>
-            </tr>
-        </thead>
-        <tbody id="tabla-informatica">
-            </tbody>
-    </table>
-
-    <h2>Carrera: Ingeniería Eléctrica - Sección 01</h2>
-    <p><strong>Modalidad:</strong> Nocturna | <strong>Semestre:</strong> 2do</p>
-    <table>
-        <thead>
-            <tr>
-                <th>Cédula</th>
-                <th>Apellidos y Nombres</th>
-                <th>F. Nacimiento</th>
-                <th>Dirección</th>
-                <th>Modalidad</th>
-            </tr>
-        </thead>
-        <tbody id="tabla-electrica">
-        </tbody>
-    </table>
-
-    </div>
+    <div id="tablas-container">
+        </div>
+</div>
 
 <script>
-    // Función para generar datos de ejemplo rápidamente
-    function llenarTabla(idTabla, prefijoCedula, cantidad, carrera, modalidadBase) {
-        const tabla = document.getElementById(idTabla);
-        const nombres = ["Juan", "Maria", "Luis", "Ana", "Pedro", "Elena", "Carlos", "Sofia", "Diego", "Carmen"];
-        const apellidos = ["Perez", "Uzcategui", "Briceño", "Mendoza", "Rivas", "Torres", "Araujo", "Quintero"];
-        const sectores = ["La Beatriz", "San Luis", "Morón", "Las Acacias", "Plata III", "Motatán", "Carvajal"];
+    const carrerasConfig = [
+        { nombre: "Ingeniería en Informática", id: "inf", ced: "300000", cant: 35, mod: "Diurno", clase: "diurno" },
+        { nombre: "Ingeniería Eléctrica", id: "ele", ced: "400000", cant: 32, mod: "Nocturno", clase: "nocturno" },
+        { nombre: "Contaduría Pública", id: "con_p", ced: "500000", cant: 35, mod: "Fin de Semana", clase: "fines" },
+        { nombre: "Derecho", id: "der", ced: "600000", cant: 31, mod: "A Distancia", clase: "distancia" },
+        { nombre: "Contaduría", id: "con", ced: "700000", cant: 34, mod: "Diurno", clase: "diurno" }
+    ];
 
-        for (let i = 0; i <= cantidad; i++) {
-            let cedula = prefijoCedula + (i < 10 ? "0" + i : i);
-            let nombre = nombres[Math.floor(Math.random() * nombres.length)];
-            let apellido = apellidos[Math.floor(Math.random() * apellidos.length)];
-            let sector = sectores[Math.floor(Math.random() * sectores.length)];
-            
-            let fila = `<tr>
-                <td>${cedula}</td>
-                <td>${apellido}, ${nombre}</td>
-                <td>${10 + (i%10)}/05/2005</td>
-                <td>Valera, Sector ${sector}</td>
-                <td class="modalidad">${modalidadBase}</td>
-            </tr>`;
-            tabla.innerHTML += fila;
-        }
+    function generarTablas() {
+        const container = document.getElementById('tablas-container');
+        const nombresBase = ["Carlos", "Andrés", "Mariana", "Elena", "Roberto", "Lucía", "Fernando", "Paola", "Diego", "Carmen", "Jesús", "Mónica"];
+        const apellidosBase = ["Araujo", "Briceño", "Uzcátegui", "Mendoza", "Pérez", "Quintero", "Rivas", "Torres", "Villegas", "Castillo"];
+        const sectores = ["La Beatriz", "San Luis", "Plata III", "Lazo de la Vega", "Morón", "Motatán", "Carvajal"];
+
+        carrerasConfig.forEach(carrera => {
+            let html = `<h2>${carrera.nombre} - Sección Única</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Cédula</th>
+                                    <th>Apellidos</th>
+                                    <th>Nombres</th>
+                                    <th>F. Nacimiento</th>
+                                    <th>Dirección</th>
+                                    <th>Modalidad</th>
+                                </tr>
+                            </thead>
+                            <tbody>`;
+
+            for (let i = 1; i <= carrera.cant; i++) {
+                let cedula = carrera.ced + (i < 10 ? "0" + i : i);
+                let nombre = nombresBase[Math.floor(Math.random() * nombresBase.length)];
+                let apellido = apellidosBase[Math.floor(Math.random() * apellidosBase.length)] + " " + apellidosBase[Math.floor(Math.random() * apellidosBase.length)];
+                let sector = sectores[Math.floor(Math.random() * sectores.length)];
+                let dia = 10 + (i % 20);
+
+                html += `<tr>
+                            <td>${cedula}</td>
+                            <td>${apellido}</td>
+                            <td>${nombre}</td>
+                            <td>${dia}/0${(i%9)+1}/2005</td>
+                            <td>Valera, Edo. Trujillo - ${sector}</td>
+                            <td><span class="modalidad ${carrera.clase}">${carrera.mod}</span></td>
+                         </tr>`;
+            }
+
+            html += `</tbody></table>`;
+            container.innerHTML += html;
+        });
     }
 
-    // Ejecutamos el llenado de las tablas al cargar
-    window.onload = function() {
-        llenarTabla('tabla-informatica', '300000', 31, 'Informática', 'Diurno');
-        llenarTabla('tabla-electrica', '400000', 31, 'Eléctrica', 'Nocturno');
-        // Aquí puedes agregar las otras 3 carreras (Derecho, Contaduría, Contaduría Pública)
-    };
+    window.onload = generarTablas;
 </script>
 
 </body>
