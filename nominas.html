@@ -2,25 +2,26 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Control de Nóminas - TecnoSistemas-V</title>
+    <title>Nóminas TecnoSistemas-V</title>
     <style>
-        body { font-family: Arial; background: #f0f2f5; padding: 20px; }
-        .panel { max-width: 1100px; margin: auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        body { font-family: Arial, sans-serif; background: #f4f7f6; padding: 20px; }
+        .panel { max-width: 1000px; margin: auto; background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th { background: #003366; color: white; padding: 12px; }
+        th { background: #003366; color: white; padding: 12px; text-align: left; }
         td { padding: 10px; border-bottom: 1px solid #ddd; }
-        .btn-accion { padding: 8px; cursor: pointer; border: none; border-radius: 4px; color: white; }
+        .btn-accion { padding: 6px 12px; border: none; border-radius: 4px; cursor: pointer; color: white; margin: 2px; }
         .btn-editar { background: #f39c12; }
         .btn-guardar { background: #27ae60; }
         .btn-eliminar { background: #c0392b; }
-        .btn-nuevo { background: #003366; padding: 10px 20px; margin-bottom: 20px; }
-        [contenteditable="true"] { background: #fffde7; border: 1px solid #fbc02d; }
+        .btn-nuevo { background: #003366; padding: 10px 20px; margin-bottom: 15px; }
+        [contenteditable="true"] { background: #fffde7; border: 1px solid #f1c40f; outline: none; }
     </style>
 </head>
 <body>
     <div class="panel">
-        <h1>Control Maestro de Nóminas</h1>
-        <button class="btn-accion btn-nuevo" onclick="agregarNuevo()">+ Agregar Estudiante</button>
+        <a href="index.html" style="color: #003366; text-decoration: none;">← Volver</a>
+        <h1>Administración de Estudiantes</h1>
+        <button class="btn-accion btn-nuevo" onclick="agregarNuevo()">+ Nuevo Estudiante</button>
         <table>
             <thead>
                 <tr>
