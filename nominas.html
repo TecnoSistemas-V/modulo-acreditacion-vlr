@@ -2,49 +2,39 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Gestión de Nóminas | TecnoSistemas-V</title>
-    <link rel="stylesheet" href="css/estilos.css">
+    <title>Control de Nóminas - TecnoSistemas-V</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; padding: 20px; }
-        .contenedor { max-width: 1200px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        h1 { color: #003366; text-align: center; }
+        body { font-family: Arial; background: #f0f2f5; padding: 20px; }
+        .panel { max-width: 1100px; margin: auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th { background-color: #003366; color: white; padding: 12px; }
-        td { padding: 10px; border-bottom: 1px solid #ddd; text-align: left; }
-        tr:hover { background-color: #f1f1f1; }
-        /* Estilos CRUD */
-        .btn-accion { padding: 6px 12px; cursor: pointer; border: none; border-radius: 4px; font-weight: bold; margin-right: 5px; }
-        .btn-editar { background-color: #ffc107; color: black; }
-        .btn-eliminar { background-color: #dc3545; color: white; }
-        .btn-guardar { background-color: #28a745; color: white; display: none; }
-        .btn-nuevo { background-color: #003366; color: white; margin-bottom: 15px; }
-        [contenteditable="true"] { background-color: #fff9c4; border: 1px solid #ffa000; outline: none; }
+        th { background: #003366; color: white; padding: 12px; }
+        td { padding: 10px; border-bottom: 1px solid #ddd; }
+        .btn-accion { padding: 8px; cursor: pointer; border: none; border-radius: 4px; color: white; }
+        .btn-editar { background: #f39c12; }
+        .btn-guardar { background: #27ae60; }
+        .btn-eliminar { background: #c0392b; }
+        .btn-nuevo { background: #003366; padding: 10px 20px; margin-bottom: 20px; }
+        [contenteditable="true"] { background: #fffde7; border: 1px solid #fbc02d; }
     </style>
 </head>
 <body>
-
-<div class="contenedor">
-    <a href="index.html" style="text-decoration: none; color: #003366;">← Volver al Panel</a>
-    <h1>Panel de Administración de Nóminas</h1>
-    
-    <button class="btn-accion btn-nuevo" onclick="agregarNuevo()">+ Agregar Estudiante</button>
-
-    <table id="tabla-nominas">
-        <thead>
-            <tr>
-                <th>Cédula</th>
-                <th>Apellidos</th>
-                <th>Nombres</th>
-                <th>F. Nacimiento</th>
-                <th>Dirección</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody id="cuerpo-tabla">
-            </tbody>
-    </table>
-</div>
-
-<script src="js/crud.js"></script>
+    <div class="panel">
+        <h1>Control Maestro de Nóminas</h1>
+        <button class="btn-accion btn-nuevo" onclick="agregarNuevo()">+ Agregar Estudiante</button>
+        <table>
+            <thead>
+                <tr>
+                    <th>Cédula</th>
+                    <th>Apellidos</th>
+                    <th>Nombres</th>
+                    <th>Carrera</th>
+                    <th>Dirección</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="cuerpo-tabla"></tbody>
+        </table>
+    </div>
+    <script src="js/crud.js"></script>
 </body>
 </html>
