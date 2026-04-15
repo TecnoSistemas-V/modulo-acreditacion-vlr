@@ -1,25 +1,55 @@
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        // Sacamos los datos de la "maleta" del navegador
-        const estudiante = JSON.parse(localStorage.getItem('estudiante_activo'));
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Constancia de Estudios | TecnoSistemas-V</title>
+    <style>
+        body { font-family: 'Arial', sans-serif; padding: 50px; line-height: 1.6; color: #333; }
+        .hoja { max-width: 800px; margin: auto; border: 1px solid #ccc; padding: 40px; background: white; }
+        .encabezado { text-align: center; margin-bottom: 40px; }
+        .titulo { color: #003366; text-decoration: underline; }
+        .footer { margin-top: 80px; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="hoja">
+        <div class="encabezado">
+            <h2>TECNOSISTEMAS-V</h2>
+            <p>Valera, Estado Trujillo</p>
+            <h1 class="titulo">CONSTANCIA DE ESTUDIOS</h1>
+        </div>
 
-        if (estudiante) {
-            // Llenamos los campos con las mayúsculas exactas de tu base de datos
-            document.getElementById('nombre-alumno').textContent = `${estudiante.Nombres} ${estudiante.Apellidos}`;
-            document.getElementById('cedula-alumno').textContent = estudiante.Cédula;
-            document.getElementById('carrera-alumno').textContent = estudiante.Carrera;
+        <div id="contenido-constancia">
+            <p>Por medio de la presente se hace constar que el ciudadano(a): 
+            <strong id="nombre-alumno">Cargando...</strong>, titular de la cédula de identidad 
+            <strong>V-<span id="cedula-alumno"></span></strong>, cursa estudios actualmente en la 
+            especialidad de <strong id="carrera-alumno"></strong>.</p>
             
-            // Ponemos la fecha de hoy automáticamente
-            const fecha = new Date();
-            const opciones = { year: 'numeric', month: 'long', day: 'numeric' };
-            document.getElementById('fecha-actual').textContent = fecha.toLocaleDateString('es-ES', opciones);
-        } else {
-            alert("Error: No hay datos. Por favor busca la cédula de nuevo.");
-            window.location.href = '../solicitud.html';
-        }
-    });
+            <p>Constancia que se expide en Valera, a los <span id="fecha"></span>.</p>
+        </div>
 
-    function imprimir() { window.print(); }
-</script>
+        <div class="footer">
+            <p>__________________________</p>
+            <p><strong>Dirección Académica</strong></p>
+        </div>
+    </div>
+
+    <script>
+        // ESTE SCRIPT ES EL QUE LLENA LOS DATOS
+        document.addEventListener('DOMContentLoaded', () => {
+            const datos = JSON.parse(localStorage.getItem('estudiante_activo'));
+            
+            if (datos) {
+                // Usamos los nombres exactos de tus columnas del CSV
+                document.getElementById('nombre-alumno').innerText = datos.Nombres + " " + datos.Apellidos;
+                document.getElementById('cedula-alumno').innerText = datos.Cédula;
+                document.getElementById('carrera-alumno').innerText = datos.Carrera || "Informática";
+                document.getElementById('fecha').innerText = new Date().toLocaleDateString();
+            } else {
+                alert("No se encontraron datos. Por favor, realiza la búsqueda de nuevo.");
+                window.location.href = "../solicitud.html";
+            }
+        });
+    </script>
 </body>
 </html>
