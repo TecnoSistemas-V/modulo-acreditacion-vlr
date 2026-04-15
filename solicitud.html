@@ -2,28 +2,28 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Solicitud de Constancias | TecnoSistemas-V</title>
-    <link rel="stylesheet" href="css/estilos.css">
-    <link rel="stylesheet" href="css/fuentes.css">
+    <title>Solicitud de Constancia | TecnoSistemas-V</title>
+    <link rel="stylesheet" href="CSS/estilos.css">
 </head>
-<body style="display: flex; flex-direction: column; align-items: center; background-color: #f0f2f5; min-height: 100vh; margin: 0;">
+<body style="display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #003366; margin: 0;">
+    <div style="background: white; padding: 40px; border-radius: 15px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.3); width: 350px;">
+        <h2 style="color: #003366;">Portal de Trámites</h2>
+        <p>Ingrese su Cédula de Identidad:</p>
+        
+        <input type="text" id="cedula-input" placeholder="Ej: 12345678" style="padding: 12px; width: 100%; border: 1px solid #ccc; border-radius: 5px; margin-bottom: 20px; box-sizing: border-box;">
+        
+        <p>Tipo de Constancia:</p>
+        <select id="tipo-documento" style="padding: 12px; width: 100%; border-radius: 5px; margin-bottom: 20px;">
+            <option value="estudio">Constancia de Estudios</option>
+            <option value="trabajo">Constancia de Trabajo</option>
+        </select>
 
-    <div style="margin-top: 50px; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 400px; text-align: center;">
-        <h2 style="color: #003366;">Portal del Estudiante / Trabajador</h2>
-        <p>Ingrese su cédula para consultar sus datos:</p>
-
-        <div style="display: flex; flex-direction: column; gap: 15px; margin-top: 20px;">
-            <input type="text" id="cedula-buscar" placeholder="Ej: 12345678" style="padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
-            
-            <button type="button" onclick="buscarEstudiante()" style="background-color: #28a745; color: white; border: none; padding: 12px; border-radius: 5px; cursor: pointer; font-weight: bold;">
-                BUSCAR DATOS
-            </button>
-        </div>
-
-        <div id="resultado-busqueda" style="margin-top: 20px;"></div>
+        <button onclick="buscarYGenerar()" style="background: #28a745; color: white; border: none; padding: 15px; width: 100%; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 16px;">
+            GENERAR DOCUMENTO
+        </button>
+        
+        <p style="margin-top: 20px;"><a href="index.html" style="color: #666; font-size: 14px;">Volver al inicio</a></p>
     </div>
-
-    <p style="margin-top: 20px;"><a href="index.html" style="color: #003366; text-decoration: none; font-weight: bold;">← Volver al Inicio</a></p>
 
     <script type="module" src="js/buscar.js"></script>
 </body>
