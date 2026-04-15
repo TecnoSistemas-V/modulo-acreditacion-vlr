@@ -34,10 +34,10 @@ window.buscarEstudiante = async function() {
                 
                 resultadoDiv.innerHTML = `
                     <div style="background: #d4edda; color: #155724; padding: 15px; border-radius: 8px; border: 1px solid #c3e6cb; margin-top: 10px;">
-                        <p><strong>Estudiante:</strong> ${datos.nombres} ${datos.apellidos}</p>
                         <p><strong>Estudiante:</strong> ${datos.Nombres} ${datos.Apellidos}</p>
-<p><strong>Carrera:</strong> ${datos.Carrera}</p>
-<p><strong>Sección:</strong> ${datos.Sección || datos.Seccion}</p>
+                        <p><strong>Carrera:</strong> ${datos.Carrera}</p>
+                        <p><strong>Sección:</strong> ${datos.Sección || datos.Seccion}</p>
+                        <p><strong>Sección:</strong> ${datos.Sección || datos.Seccion}</p>
                         <hr>
                         <button onclick="window.location.href='generar_constancia.html'" 
                                 style="background: #28a745; color: white; padding: 12px; border: none; border-radius: 5px; cursor: pointer; width: 100%; font-weight: bold;">
