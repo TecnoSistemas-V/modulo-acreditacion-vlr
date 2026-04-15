@@ -1,18 +1,16 @@
-// js/conexion.js
+// js/conexion.js - CÓDIGO FINAL CON TUS DATOS REALES
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-// REEMPLAZA ESTOS DATOS con los de tu proyecto en la consola de Firebase
-// (Los encuentras en Configuración del Proyecto -> General -> Tus Apps)
 const firebaseConfig = {
-    apiKey: "TU_API_KEY",
-    authDomain: "tu-proyecto.firebaseapp.com",
-    projectId: "tu-proyecto-id",
-    storageBucket: "tu-proyecto.appspot.com",
-    messagingSenderId: "tu-id-remitente",
-    appId: "tu-app-id"
+  apiKey: "AIzaSyDNQlaP3mrYDd4Gz0pHS-sXhjY7ZWk2TfW",
+  authDomain: "tecnosistemas-v.firebaseapp.com",
+  projectId: "tecnosistemas-v",
+  storageBucket: "tecnosistemas-v.firebasestorage.app",
+  messagingSenderId: "256764716518",
+  appId: "1:256764716518:web:29589e84f9ae3ded7fe227",
+  measurementId: "G-X83LM1BNTC"
 };
 
-// Inicializamos Firebase
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
