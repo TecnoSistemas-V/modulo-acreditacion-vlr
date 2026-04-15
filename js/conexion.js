@@ -1,4 +1,4 @@
-// js/conexion.js - CÓDIGO FINAL CON TUS DATOS REALES
+// js/conexion.js - CÓDIGO COMPLETO Y REAL
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
