@@ -5,22 +5,15 @@
     <title>Administración - TecnoSistemas-V</title>
     <link rel="stylesheet" href="CSS/estilos.css">
 </head>
-<body style="font-family: Arial; background: #f4f4f4; padding: 20px; text-align: center;">
-    <div style="background: white; padding: 30px; border-radius: 10px; max-width: 500px; margin: auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-        <h2 style="color: #003366;">Gestión de Nóminas</h2>
-        <p>Seleccione el archivo CSV para cargar los datos a la nube:</p>
-        
+<body style="font-family: Arial; padding: 40px; text-align: center; background: #f0f2f5;">
+    <div style="background: white; padding: 30px; border-radius: 10px; display: inline-block; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <h2 style="color: #003366;">Carga de Nóminas (CSV)</h2>
         <input type="file" id="csv-file" accept=".csv" style="margin-bottom: 20px;">
         <br>
-        <button onclick="procesarArchivo()" style="background: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; margin-right: 10px;">
-            🚀 CARGAR DATOS
-        </button>
-        <button onclick="vaciarTodo()" style="background: #dc3545; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold;">
-            🗑️ VACIAR NUBE
-        </button>
+        <button onclick="procesarArchivo()" style="background: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold;">🚀 CARGAR DATOS</button>
+        <button onclick="vaciarTodo()" style="background: #dc3545; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; margin-left: 10px;">🗑️ VACIAR NUBE</button>
     </div>
-
-    <p style="margin-top: 20px;"><a href="solicitud.html" style="text-decoration: none; color: #003366; font-weight: bold;">← Ir al Buscador de Cédulas</a></p>
+    <p><a href="solicitud.html" style="color: #003366;">Ir al Buscador</a></p>
 
     <script type="module" src="js/crud.js"></script>
 </body>
