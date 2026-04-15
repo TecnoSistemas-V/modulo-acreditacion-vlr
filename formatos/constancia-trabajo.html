@@ -1,24 +1,121 @@
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const trabajador = JSON.parse(localStorage.getItem('estudiante_activo'));
-
-        if (trabajador) {
-            // Aquí usamos IDs que suenen a "trabajador" para no confundir
-            document.getElementById('nombre-trabajador').textContent = `${trabajador.Nombres} ${trabajador.Apellidos}`;
-            document.getElementById('cedula-trabajador').textContent = trabajador.Cédula;
-            
-            // Si en tu Excel no hay columna 'Cargo', aquí le ponemos 'Personal Administrativo' por defecto
-            document.getElementById('cargo-trabajador').textContent = trabajador.Cargo || "Personal Administrativo";
-            
-            const fecha = new Date();
-            const opciones = { year: 'numeric', month: 'long', day: 'numeric' };
-            document.getElementById('fecha-actual').textContent = fecha.toLocaleDateString('es-ES', opciones);
-        } else {
-            window.location.href = '../solicitud.html';
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Constancia de Trabajo | TecnoSistemas-V</title>
+    <style>
+        /* Estilos para que se vea como una carta formal */
+        body { 
+            font-family: 'Times New Roman', serif; 
+            line-height: 1.6; 
+            color: #333; 
+            padding: 40px; 
+            background-color: #f4f4f4;
         }
-    });
+        .hoja { 
+            width: 100%; 
+            max-width: 800px; 
+            margin: auto; 
+            padding: 60px; 
+            background: white; 
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            min-height: 900px;
+        }
+        .encabezado { 
+            text-align: center; 
+            margin-bottom: 50px; 
+        }
+        .cuerpo { 
+            text-align: justify; 
+            font-size: 18px; 
+        }
+        .firma { 
+            margin-top: 100px; 
+            text-align: center; 
+        }
+        .no-print { 
+            text-align: center; 
+            margin-top: 20px; 
+        }
+        button { 
+            background: #003366; 
+            color: white; 
+            padding: 15px 30px; 
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            font-weight: bold; 
+        }
+        /* Esto oculta el botón al momento de imprimir */
+        @media print { 
+            .no-print { display: none; } 
+            body { background: white; padding: 0; }
+            .hoja { box-shadow: none; border: none; }
+        }
+    </style>
+</head>
+<body>
 
-    function imprimir() { window.print(); }
-</script>
+    <div class="hoja">
+        <div class="encabezado">
+            <h2 style="margin: 0; color: #003366;">TECNOSISTEMAS-V</h2>
+            <p style="margin: 0;">Rif: J-25676471-6</p>
+            <p style="margin: 0;">Valera, Estado Trujillo</p>
+            <br><br>
+            <h3 style="text-decoration: underline;">CONSTANCIA DE TRABAJO</h3>
+        </div>
+
+        <div class="cuerpo">
+            <p>Por medio de la presente se hace constar que el ciudadano(a):</p>
+            <p style="text-align: center; font-weight: bold; font-size: 22px; margin: 20px 0;">
+                <span id="nombre-trabajador">Cargando...</span>
+            </p>
+            <p>Titular de la Cédula de Identidad Nº: <strong><span id="cedula-trabajador"></span></strong>, labora en nuestra organización desempeñando el cargo de:</p>
+            <p style="text-align: center; font-weight: bold; font-size: 20px;">
+                <span id="cargo-trabajador"></span>
+            </p>
+            <p>Demostrando durante su permanencia en la institución una conducta intachable, responsabilidad y alto sentido de pertenencia en sus labores asignadas.</p>
+            <br>
+            <p>Constancia que se expide a petición de la parte interesada en la ciudad de Valera, a los <span id="fecha-actual"></span>.</p>
+        </div>
+
+        <div class="firma">
+            <div style="width: 250px; border-top: 1px solid #000; margin: auto; padding-top: 10px;">
+                <strong>Recursos Humanos</strong><br>
+                TecnoSistemas-V
+            </div>
+        </div>
+    </div>
+
+    <div class="no-print">
+        <button onclick="window.print()">🖨️ IMPRIMIR CONSTANCIA</button>
+        <br><br>
+        <a href="../solicitud.html" style="color: #003366; text-decoration: none;">← Volver al Buscador</a>
+    </div>
+
+    <script>
+        // Lógica para llenar los datos automáticamente
+        document.addEventListener('DOMContentLoaded', () => {
+            const trabajador = JSON.parse(localStorage.getItem('estudiante_activo'));
+
+            if (trabajador) {
+                // Llenamos los campos usando las columnas de tu Excel
+                document.getElementById('nombre-trabajador').textContent = `${trabajador.Nombres} ${trabajador.Apellidos}`;
+                document.getElementById('cedula-trabajador').textContent = trabajador.Cédula;
+                
+                // Si en tu Excel no existe la columna 'Cargo', pondrá este texto por defecto
+                document.getElementById('cargo-trabajador').textContent = trabajador.Carrera || "Personal Técnico / Administrativo";
+
+                // Fecha automática en español
+                const fecha = new Date();
+                const opciones = { day: 'numeric', month: 'long', year: 'numeric' };
+                document.getElementById('fecha-actual').textContent = fecha.toLocaleDateString('es-ES', opciones);
+            } else {
+                alert("Error: No se encontraron datos del trabajador.");
+                window.location.href = '../solicitud.html';
+            }
+        });
+    </script>
 </body>
 </html>
