@@ -1,72 +1,25 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Constancia de Estudios Digital</title>
-    <style>
-        body { font-family: 'Arial', sans-serif; padding: 40px; line-height: 1.6; color: #333; }
-        .hoja { max-width: 800px; margin: auto; border: 1px solid #eee; padding: 50px; box-shadow: 0 0 10px rgba(0,0,0,0.05); }
-        .membrete { text-align: center; font-size: 0.9em; margin-bottom: 40px; }
-        .titulo { text-align: center; font-weight: bold; text-decoration: underline; font-size: 1.5em; margin-bottom: 40px; }
-        .cuerpo { text-align: justify; font-size: 1.1em; margin-bottom: 30px; }
-        .firma { margin-top: 60px; text-align: center; }
-        .linea { border-top: 1px solid #000; width: 200px; margin: 10px auto; }
-        @media print { .no-print { display: none; } .hoja { border: none; box-shadow: none; padding: 0; } }
-    </style>
-</head>
-<body>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Sacamos los datos de la "maleta" del navegador
+        const estudiante = JSON.parse(localStorage.getItem('estudiante_activo'));
 
-    <div class="no-print" style="text-align: center; margin-bottom: 20px;">
-        <button onclick="window.print()" style="padding: 10px 20px; background: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;">🖨️ IMPRIMIR CONSTANCIA</button>
-    </div>
-
-    <div class="hoja">
-        <div class="membrete">
-            REPÚBLICA BOLIVARIANA DE VENEZUELA<br>
-            UNIDAD EDUCATIVA INSTITUCIONAL - VALERA, EDO. TRUJILLO
-        </div>
-
-        <div class="titulo">CONSTANCIA DE ESTUDIOS</div>
-
-        <div class="cuerpo">
-            Quien suscribe, la Dirección de la Unidad Educativa Institucional, hace constar por medio de la presente que el alumno(a): 
-            <b id="nombre-est"></b>, titular de la Cédula de Identidad N° 
-            <b id="cedula-est"></b>, se encuentra inscrito y cursando actualmente la carrera de 
-            <b id="carrera-est"></b> en esta institución, durante el período escolar 2025-2026.
-        </div>
-
-        <div class="cuerpo">
-            Constancia que se expide a petición de la parte interesada en Valera, a los <span id="fecha-actual"></span>.
-        </div>
-
-        <div class="firma">
-            <div class="linea"></div>
-            Dirección Académica<br>Sello de la Institución
-        </div>
-    </div>
-
-    <script>
-        // CAPTURA DE DATOS DESDE LA URL
-        const params = new URLSearchParams(window.location.search);
-        
-        // Asignamos los valores a los elementos por su ID (esto evita duplicados)
-        if (params.has('nombre')) {
-            document.getElementById('nombre-est').innerText = params.get('nombre').toUpperCase();
-            document.getElementById('cedula-est').innerText = "V-" + params.get('cedula');
-            document.getElementById('carrera-est').innerText = params.get('carrera');
-
-            // Fecha automática
-            const hoy = new Date();
-            const fechaTexto = hoy.toLocaleDateString('es-ES', { 
-                day: 'numeric', 
-                month: 'long', 
-                year: 'numeric' 
-            });
-            document.getElementById('fecha-actual').innerText = fechaTexto;
+        if (estudiante) {
+            // Llenamos los campos con las mayúsculas exactas de tu base de datos
+            document.getElementById('nombre-alumno').textContent = `${estudiante.Nombres} ${estudiante.Apellidos}`;
+            document.getElementById('cedula-alumno').textContent = estudiante.Cédula;
+            document.getElementById('carrera-alumno').textContent = estudiante.Carrera;
+            
+            // Ponemos la fecha de hoy automáticamente
+            const fecha = new Date();
+            const opciones = { year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('fecha-actual').textContent = fecha.toLocaleDateString('es-ES', opciones);
         } else {
-            // Si entras directo sin datos, muestra un aviso
-            document.querySelector('.cuerpo').innerText = "Error: No se han recibido datos del estudiante.";
+            alert("Error: No hay datos. Por favor busca la cédula de nuevo.");
+            window.location.href = '../solicitud.html';
         }
-    </script>
+    });
+
+    function imprimir() { window.print(); }
+</script>
 </body>
 </html>
