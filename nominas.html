@@ -2,48 +2,25 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Control de Estudios - TecnoSistemas-V</title>
-    <link rel="stylesheet" href="css/estilos.css">
+    <title>Administración - TecnoSistemas-V</title>
+    <link rel="stylesheet" href="CSS/estilos.css">
 </head>
-<body>
-    <div class="contenedor">
-        <header>
-            <a href="index.html" class="link-volver">← Volver al Panel</a>
-            <h1>Administración de Estudiantes</h1>
-        </header>
-
-        <section class="seccion-carga">
-            <div class="tarjeta-importar">
-                <h3>Carga Masiva desde Google Sheets</h3>
-                <p>Archivo requerido: <strong>nomina_estudiantil_tecnosistemas_2026.csv</strong></p>
-                
-                <div class="controles-archivo">
-                    <input type="file" id="archivo-csv" accept=".csv">
-                    <button class="btn-principal" onclick="importarCSV()">Procesar Archivo</button>
-                    <button class="btn-peligro" onclick="vaciarBaseDeDatos()">Vaciar Todo</button>
-                </div>
-            </div>
-        </section>
-
-        <div class="tabla-scroll">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Cédula</th>
-                        <th>Apellidos</th>
-                        <th>Nombres</th>
-                        <th>Carrera</th>
-                        <th>Sección</th>
-                        <th>Dirección</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody id="cuerpo-tabla">
-                    </tbody>
-            </table>
-        </div>
+<body style="font-family: Arial; background: #f4f4f4; padding: 20px; text-align: center;">
+    <div style="background: white; padding: 30px; border-radius: 10px; max-width: 500px; margin: auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+        <h2 style="color: #003366;">Gestión de Nóminas</h2>
+        <p>Seleccione el archivo CSV para cargar los datos a la nube:</p>
+        
+        <input type="file" id="csv-file" accept=".csv" style="margin-bottom: 20px;">
+        <br>
+        <button onclick="procesarArchivo()" style="background: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; margin-right: 10px;">
+            🚀 CARGAR DATOS
+        </button>
+        <button onclick="vaciarTodo()" style="background: #dc3545; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold;">
+            🗑️ VACIAR NUBE
+        </button>
     </div>
+
+    <p style="margin-top: 20px;"><a href="solicitud.html" style="text-decoration: none; color: #003366; font-weight: bold;">← Ir al Buscador de Cédulas</a></p>
 
     <script type="module" src="js/crud.js"></script>
 </body>
