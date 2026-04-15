@@ -1,3 +1,4 @@
+// js/crud.js - CÓDIGO COMPLETO
 import { db } from './conexion.js';
 import { collection, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
@@ -14,13 +15,15 @@ window.procesarArchivo = async function() {
         for (let i = 1; i < lineas.length; i++) {
             const datos = lineas[i].split(',');
             if (datos.length >= 3) {
-                await addDoc(collection(db, "estudiantes"), {
-                    "Cédula": datos[0].trim(),
-                    "Apellidos": datos[1].trim(),
-                    "Nombres": datos[2].trim(),
-                    "Carrera": datos[3] ? datos[3].trim() : "General"
-                });
-                contador++;
+                try {
+                    await addDoc(collection(db, "estudiantes"), {
+                        "Cédula": datos[0].trim(),
+                        "Apellidos": datos[1].trim(),
+                        "Nombres": datos[2].trim(),
+                        "Carrera": datos[3] ? datos[3].trim() : "General"
+                    });
+                    contador++;
+                } catch (err) { console.error("Error al subir:", err); }
             }
         }
         alert("¡Éxito! Se cargaron " + contador + " registros.");
